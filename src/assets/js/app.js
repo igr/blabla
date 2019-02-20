@@ -1,26 +1,72 @@
 import axios from 'axios';
 
-window.addEventListener('load', () => {
+// get the element
+const text = document.querySelector('.typing-text');
 
-  const api = 'http://www.colr.org/json/color/random';
-  const body = document.querySelector('body');
+// make a words array
+const words = [
+  "bla.",
+  "bla bla.",
+  "bla bla, igor.",
+];
 
-  function randomColor() {
-    axios.get(api).then(res => {
-      let color = res.data.colors[0].hex;
+// start typing effect
+setTyper(text, words);
 
-      if (!color) {
-        console.error('Random color could not be fetched.');
-      }
+function setTyper(element, words) {
 
-      color = '#' + color;
+  const LETTER_TYPE_DELAY = 75;
+  const WORD_STAY_DELAY = 2000;
 
-      body.style.backgroundColor = color;
-    }).catch(() => console.error('Random color could not be fetched.'));
+  const DIRECTION_FORWARDS = 0;
+  const DIRECTION_BACKWARDS = 1;
+
+  var direction = DIRECTION_FORWARDS;
+  var wordIndex = 0;
+  var letterIndex = 0;
+
+  var wordTypeInterval;
+
+  startTyping();
+
+  function startTyping() {
+    wordTypeInterval = setInterval(typeLetter, LETTER_TYPE_DELAY);
   }
 
-  randomColor();
+  function typeLetter() {
+    const word = words[wordIndex];
 
-  setInterval(randomColor, 8000);
+    if (direction == DIRECTION_FORWARDS) {
+      letterIndex++;
 
-});
+      if (letterIndex == word.length) {
+        direction = DIRECTION_BACKWARDS;
+        clearInterval(wordTypeInterval);
+        setTimeout(startTyping, WORD_STAY_DELAY);
+      }
+
+    } else if (direction == DIRECTION_BACKWARDS) {
+      letterIndex--;
+
+      if (letterIndex == 0) {
+        nextWord();
+      }
+    }
+
+    const textToType = word.substring(0, letterIndex);
+
+    element.textContent = textToType;
+  }
+
+  function nextWord() {
+
+    letterIndex = 0;
+    direction = DIRECTION_FORWARDS;
+    wordIndex++;
+
+    if (wordIndex == words.length) {
+      wordIndex = 0;
+    }
+
+  }
+}
