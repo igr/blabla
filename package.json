@@ -37,6 +37,6 @@
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
-    "axios": "^0.18.0"
+    "fuse.js": "^3.4.2"
   }
 }
