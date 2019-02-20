@@ -8,6 +8,7 @@ var words = [
   "bla bla.",
   "bla bla, igor.",
 ];
+var nextWords = [];
 var wordIndex = 0;
 
 function applyTyper(element) {
@@ -55,8 +56,14 @@ function applyTyper(element) {
   function nextWord() {
     letterIndex = 0;
     direction = DIRECTION_FORWARDS;
-    wordIndex++;
-
+    if (nextWords.length !== 0) {
+      words = nextWords;
+      nextWords = [];
+      wordIndex = 0;
+    }
+    else {
+      wordIndex++;
+    }
     if (wordIndex == words.length) {
       wordIndex = 0;
     }
@@ -134,15 +141,12 @@ function blabla(text) {
   var results = f.search(text);
   console.log(results);
   if (results.length === 0) {
-    wordIndex = 0;
-    words = ['bla.', 'bla bla.', 'bla bla,m igor.'];
+    nextWords = ['bla.', 'bla bla.', 'bla bla, igor.'];
   } else {
     const arr = [];
     for (var ndx in results) {
       arr.push(results[ndx].item.title);
     }
-    console.log(arr);
-    wordIndex = 0;
-    words = arr;
+    nextWords = arr;
   }
 }
