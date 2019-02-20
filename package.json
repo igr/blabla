@@ -1,20 +1,7 @@
 {
-  "name": "@jr-cologne/create-gulp-starter-kit",
-  "version": "0.4.0-alpha",
-  "description": "A simple Gulp 4 Starter Kit for modern web development.",
-  "keywords": [
-    "gulp",
-    "gulp-starter-kit",
-    "sass",
-    "babel",
-    "browser-sync",
-    "autoprefixer",
-    "modern-web-dev",
-    "imagemin",
-    "sourcemaps",
-    "webpack-stream",
-    "es6-modules"
-  ],
+  "name": "BlaBlaIgor",
+  "version": "0.1.0",
+  "description": "Bla.Bla.Igor.Yeah.",
   "scripts": {
     "start": "gulp",
     "build": "gulp build"
@@ -26,12 +13,12 @@
     "type": "git",
     "url": "https://github.com/jr-cologne/gulp-starter-kit.git"
   },
-  "author": "JR Cologne",
+  "author": "igor",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jr-cologne/gulp-starter-kit/issues"
+    "url": "https://github.com/igr/blablaigor/issues"
   },
-  "homepage": "https://github.com/jr-cologne/gulp-starter-kit",
+  "homepage": "https://blablaigor.com",
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
@@ -50,7 +37,6 @@
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "fs-extra": "^7.0.1"
+    "axios": "^0.18.0"
   }
 }

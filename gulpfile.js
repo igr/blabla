@@ -1,21 +1,3 @@
-/**
- * A simple Gulp 4 Starter Kit for modern web development.
- *
- * @package @jr-cologne/create-gulp-starter-kit
- * @author JR Cologne <kontakt@jr-cologne.de>
- * @copyright 2018 JR Cologne
- * @license https://github.com/jr-cologne/gulp-starter-kit/blob/master/LICENSE MIT
- * @version v0.4.0-alpha
- * @link https://github.com/jr-cologne/gulp-starter-kit GitHub Repository
- * @link https://www.npmjs.com/package/@jr-cologne/create-gulp-starter-kit npm package site
- *
- * ________________________________________________________________________________
- *
- * gulpfile.js
- *
- * The gulp configuration file.
- *
- */
 
 const gulp                      = require('gulp'),
       del                       = require('del'),
@@ -49,7 +31,7 @@ gulp.task('html', () => {
 });
 
 gulp.task('sass', () => {
-  return gulp.src([ src_assets_folder + 'sass/**/*.sass' ])
+  return gulp.src([ src_assets_folder + 'sass/**/*.s?ss' ])
     .pipe(sourcemaps.init())
       .pipe(plumber())
       .pipe(sass())
@@ -127,7 +109,7 @@ gulp.task('watch', () => {
 
   const watch = [
     src_folder + '**/*.html',
-    src_assets_folder + 'sass/**/*.sass',
+    src_assets_folder + 'sass/**/*.s?ss',
     src_assets_folder + 'js/**/*.js'
   ];
 

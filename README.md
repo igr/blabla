@@ -3,6 +3,8 @@
 1. `npm run build`: This is used to build all files and run all tasks without serving a development server and watching for changes.
 2. `npm start`: This is the normal development script used to build all files and run all tasks, but also to serve a development server and watch for changes.
 
+### What happens?
+
 - Copy HTML files from `src` to `dist` directory
 - Compile Sass to CSS, autoprefix, minify CSS and put it inside `dist` directory
 - Compile ES6+ to ES5, concatenate JS files and minify code
@@ -12,7 +14,6 @@
 - Spin up local dev server at `http://localhost:3000` including auto-reloading
 
 ### What types of images are supported?
-The following types of images are currently supported:
 
 - PNG
 - JPG / JPEG
