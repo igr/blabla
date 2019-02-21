@@ -1,13 +1,40 @@
 import Fuse from 'fuse.js';
-const data = require('./data');
 
+let url = 'https://oblac.rs/index.json';
+
+// search
+
+var fuseOptions = {
+  shouldSort: true,
+  includeMatches: true,
+  threshold: 0.0,
+  tokenize:true,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: [
+    {name:"title",weight:0.8},
+    {name:"contents",weight:0.5},
+    {name:"tags",weight:0.3},
+    {name:"categories",weight:0.3}
+  ]
+};
+var fuse;
+fetch(url)
+  .then(res => res.json())
+  .then((out) => {
+    fuse = new Fuse(out, fuseOptions);
+  })
+  .catch(err => { throw err });
 
 // words array
-var words = [
+var defaultWords = [
   "bla.",
   "bla bla.",
-  "bla bla, igor.",
-];
+  "bla bla, oblac.",
+]
+var words = defaultWords;
 var nextWords = [];
 var wordIndex = 0;
 
@@ -64,7 +91,7 @@ function applyTyper(element) {
     else {
       wordIndex++;
     }
-    if (wordIndex == words.length) {
+    if (wordIndex >= words.length) {
       wordIndex = 0;
     }
   }
@@ -119,29 +146,22 @@ input.onkeyup = function (e) {
 
 // search
 
-var fuseOptions = {
-  shouldSort: true,
-  includeMatches: true,
-  threshold: 0.0,
-  tokenize:true,
-  location: 0,
-  distance: 100,
-  maxPatternLength: 32,
-  minMatchCharLength: 1,
-  keys: [
-    {name:"title",weight:0.8},
-    {name:"contents",weight:0.5},
-    {name:"tags",weight:0.3},
-    {name:"categories",weight:0.3}
-  ]
-};
-const f = new Fuse(data.site(), fuseOptions);
-
 function blabla(text) {
-  var results = f.search(text);
+  if (!fuse) return;
+  var results = fuse.search(text);
+
+  // filtering no categories
+  var filteredResults = [];
+  for (var ndx in results) {
+    if (results[ndx].item.categories) {
+      filteredResults.push(results[ndx]);
+    }
+  }
+  results = filteredResults;
+
   console.log(results);
   if (results.length === 0) {
-    nextWords = ['bla.', 'bla bla.', 'bla bla, igor.'];
+    nextWords = defaultWords;
   } else {
     const arr = [];
     for (var ndx in results) {
