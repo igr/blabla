@@ -110,12 +110,12 @@ const input = document.querySelector('#in');
 function boxStart() {
   box.style.display = 'none';
   unbox.style.display = 'flex';
-  input.value = "";
   input.focus();
 }
 function boxEnd() {
   box.style.display = 'block';
   unbox.style.display = 'none';
+  input.value = "";
 }
 
 box.addEventListener('click', function() {boxStart();});
@@ -125,16 +125,26 @@ box.addEventListener('click', function() {boxStart();});
 document.onkeydown = function(evt) {
     evt = evt || window.event;
     var isEscape = false;
+    var isShow = false;
     if ("key" in evt) {
         isEscape = (evt.key === "Escape" || evt.key === "Esc");
+        isShow = (evt.key === "Enter");
     } else {
         isEscape = (evt.keyCode === 27);
+        isShow = (evt.keyCode === 13);
     }
-    if (isEscape) {boxEnd();}
+    if (isEscape) {
+      boxEnd();
+      resetBlaBla();
+    }
+    if (isShow) {
+      boxStart();
+    }
 };
 
 
-// keyboard timeout
+// keyboard timeout search
+
 var timeout = null;
 input.onkeyup = function (e) {
     clearTimeout(timeout);
@@ -144,7 +154,11 @@ input.onkeyup = function (e) {
 };
 
 
-// search
+// bla bla search
+
+function resetBlaBla() {
+  blabla('');
+}
 
 function blabla(text) {
   if (!fuse) return;
@@ -159,7 +173,6 @@ function blabla(text) {
   }
   results = filteredResults;
 
-  console.log(results);
   if (results.length === 0) {
     nextWords = defaultWords;
   } else {
