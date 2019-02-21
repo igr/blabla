@@ -15,6 +15,7 @@ const gulp                      = require('gulp'),
 
       src_folder                = './src/',
       src_assets_folder         = src_folder + 'assets/',
+      src_static_folder         = src_folder + 'static/',
       dist_folder               = './dist/',
       dist_assets_folder        = dist_folder + 'assets/',
       node_modules_folder       = './node_modules/',
@@ -28,6 +29,12 @@ gulp.task('html', () => {
   return gulp.src([ src_folder + '**/*.html' ], { base: src_folder })
     .pipe(gulp.dest(dist_folder))
     .pipe(browserSync.stream());
+});
+
+gulp.task('static', () => {
+  return gulp.src([ src_folder + '**/*' ], { base: src_static_folder })
+    .pipe(plumber())
+    .pipe(gulp.dest(dist_folder));
 });
 
 gulp.task('sass', () => {
@@ -82,7 +89,7 @@ gulp.task('vendor', () => {
     .pipe(browserSync.stream());
 });
 
-gulp.task('build', gulp.series('clear', 'html', 'sass', 'js', 'images', 'vendor'));
+gulp.task('build', gulp.series('clear', 'static', 'html', 'sass', 'js', 'images', 'vendor'));
 
 gulp.task('dev', gulp.series('html', 'sass', 'js'));
 
@@ -109,6 +116,7 @@ gulp.task('watch', () => {
 
   const watch = [
     src_folder + '**/*.html',
+    src_static_folder + '**/*',
     src_assets_folder + 'sass/**/*.s?ss',
     src_assets_folder + 'js/**/*.js'
   ];
