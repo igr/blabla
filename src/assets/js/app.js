@@ -183,3 +183,23 @@ function blabla(text) {
     nextWords = arr;
   }
 }
+
+// waiting for document to be ready
+function ready(fn) {
+  if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
+
+ready(function() {
+  let url = window.location.href;
+  let searchParams = new URLSearchParams(new URL(url).search);
+  const s = searchParams.get('s');
+  if (s) {
+    boxStart();
+    input.value = s;
+    blabla(s);
+  }
+});
