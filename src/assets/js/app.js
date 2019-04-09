@@ -16,8 +16,7 @@ var fuseOptions = {
   keys: [
     {name:"title",weight:0.8},
     {name:"contents",weight:0.5},
-    {name:"tags",weight:0.3},
-    {name:"categories",weight:0.3}
+    {name:"tags",weight:0.3}
   ]
 };
 var fuse;
@@ -164,12 +163,10 @@ function blabla(text) {
   if (!fuse) return;
   var results = fuse.search(text);
 
-  // filtering no categories
+  // filtering
   var filteredResults = [];
   for (var ndx in results) {
-    if (results[ndx].item.categories) {
-      filteredResults.push(results[ndx]);
-    }
+    filteredResults.push(results[ndx]);
   }
   results = filteredResults;
 
